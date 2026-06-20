@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Mascot from './Mascot.jsx'
 
 // 교사 설정: 따라쓸 단어/문장 목록 등록 (localStorage 저장)
 
@@ -15,7 +16,10 @@ export default function TeacherSetup({ words, onSave }) {
 
   return (
     <div className="card">
-      <h2>👩‍🏫 선생님 설정</h2>
+      <div className="card-mascot-row">
+        <Mascot mood="default" size={64} />
+        <h2>선생님 설정</h2>
+      </div>
       <p className="hint">학생이 따라 쓸 단어나 문장을 한 줄에 하나씩 적어주세요.</p>
       <textarea
         className="word-input"

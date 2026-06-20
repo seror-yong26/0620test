@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { analyzeHandwriting, fileToDataUrl } from '../lib/api.js'
+import Mascot from './Mascot.jsx'
 
 // 따라쓸 단어 선택 → 사진 촬영/업로드 → AI 판독 요청
 
@@ -40,7 +41,10 @@ export default function CameraUpload({ words, onResult }) {
 
   return (
     <div className="card">
-      <h2>📸 따라쓰기 사진 올리기</h2>
+      <div className="card-mascot-row">
+        <Mascot mood={loading ? 'default' : 'cheer'} size={64} />
+        <h2>📸 따라쓰기 사진 올리기</h2>
+      </div>
 
       {words.length > 0 ? (
         <label className="field">

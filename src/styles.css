@@ -18,11 +18,11 @@
   --font-muotoweb: 'MuotoWeb', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', ui-sans-serif, system-ui, sans-serif;
   --font-monarch: 'Monarch', 'MuotoWeb', 'Pretendard', serif;
 
-  /* Radius */
-  --radius-cards: 20px;
-  --radius-buttons: 16px;
-  --radius-inputs: 16px;
-  --radius-images: 16px;
+  /* Radius — 초등학생용으로 기존 Harvest 값보다 더 둥글게 */
+  --radius-cards: 28px;
+  --radius-buttons: 20px;
+  --radius-inputs: 18px;
+  --radius-images: 18px;
   --radius-tags: 999px;
 
   /* Shadows */
@@ -46,23 +46,42 @@ body {
   padding: 16px;
 }
 
-/* Header — editorial display moment (Monarch-style) */
+/* Header — 또박이 마스코트가 인사하는 친근한 인트로 */
 .header {
   text-align: center;
-  padding: 32px 8px 24px;
+  padding: 28px 8px 20px;
+}
+.header-mascot {
+  animation: mascot-bounce 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 6px 10px rgba(250, 93, 0, 0.18));
 }
 .header h1 {
-  margin: 0;
-  font-family: var(--font-monarch);
-  font-weight: 400;
-  font-size: 2.1rem;
-  letter-spacing: 0;
+  margin: 10px 0 0;
+  font-family: var(--font-muotoweb);
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.015em;
   color: var(--color-ink-black);
 }
 .header p {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: var(--color-warm-stone);
   font-size: 1rem;
+}
+
+/* 카드 안에서 마스코트 + 제목을 나란히 배치 */
+.card-mascot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.card-mascot-row h2 { margin: 0; }
+.card-mascot-row .mascot { flex-shrink: 0; }
+
+@keyframes mascot-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(-3deg); }
 }
 
 /* Tabs — act as nav links, active state uses harvest flame */

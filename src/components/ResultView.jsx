@@ -1,14 +1,25 @@
 import ScoreBadge from './ScoreBadge.jsx'
+import Mascot from './Mascot.jsx'
 
 // 원본 사진 ↔ 판독 텍스트 대조 + 신뢰도/피드백/개선 제안
+
+const MOOD_BY_MATCH = {
+  '일치': 'celebrate',
+  '부분일치': 'cheer',
+  '불일치': 'oops',
+}
 
 export default function ResultView({ data, onRetry }) {
   const { result, preview, targetText } = data
   const uncertain = result.uncertainSpans || []
+  const mood = MOOD_BY_MATCH[result.match] || 'default'
 
   return (
     <div className="card">
-      <h2>🪄 AI 선생님의 결과</h2>
+      <div className="card-mascot-row">
+        <Mascot mood={mood} size={64} />
+        <h2>또박이의 채점 결과</h2>
+      </div>
 
       <ScoreBadge match={result.match} confidence={result.confidence} />
 

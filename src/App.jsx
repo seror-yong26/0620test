@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import TeacherSetup from './components/TeacherSetup.jsx'
 import CameraUpload from './components/CameraUpload.jsx'
 import ResultView from './components/ResultView.jsx'
+import Mascot from './components/Mascot.jsx'
 
 const STORAGE_KEY = 'handwriting-words'
 
@@ -29,8 +30,9 @@ export default function App() {
   return (
     <div className="app">
       <header className="header">
+        <Mascot mood="cheer" size={88} className="header-mascot" />
         <h1>또박또박 손글씨 교실</h1>
-        <p>글자를 따라 쓰고 사진을 찍으면 AI 선생님이 봐줘요!</p>
+        <p>글자를 따라 쓰고 사진을 찍으면 또박이가 봐줘요!</p>
       </header>
 
       <nav className="tabs">
@@ -54,7 +56,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">초등학생 손글씨 교정 · Gemini 2.5 Flash</footer>
+      <footer className="footer">또박이와 함께하는 손글씨 교정 · Gemini 2.5 Flash</footer>
     </div>
   )
 }
