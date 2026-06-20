@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# /api/* 요청을 Netlify Functions로 매핑
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA 라우팅: 나머지 모든 경로는 index.html로
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

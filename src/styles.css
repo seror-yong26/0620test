@@ -1,0 +1,236 @@
+:root {
+  /* Colors — Harvest design tokens */
+  --color-harvest-flame: #fa5d00;
+  --color-marigold-glow: #fee3b5;
+  --color-parchment-shadow: #e3d6c5;
+  --color-ink-black: #1d1e1c;
+  --color-paper-white: #ffffff;
+  --color-cream-canvas: #fff8f1;
+  --color-mist-gray: #d9d9d9;
+  --color-warm-stone: #615f5c;
+  --color-driftwood: #8e8b87;
+  --color-ironwood: #4a4a47;
+  --color-ash: #777571;
+  --color-bone: #c0bbb6;
+  --color-smoke: #a5a19c;
+
+  /* Typography */
+  --font-muotoweb: 'MuotoWeb', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', ui-sans-serif, system-ui, sans-serif;
+  --font-monarch: 'Monarch', 'MuotoWeb', 'Pretendard', serif;
+
+  /* Radius */
+  --radius-cards: 20px;
+  --radius-buttons: 16px;
+  --radius-inputs: 16px;
+  --radius-images: 16px;
+  --radius-tags: 999px;
+
+  /* Shadows */
+  --shadow-sm: rgba(0, 0, 0, 0.2) 0px 1px 4px 0px;
+  --shadow-lg: rgba(250, 166, 0, 0.25) 6px 4px 24px 0px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-muotoweb);
+  letter-spacing: 0.015em;
+  background: var(--color-cream-canvas);
+  color: var(--color-ink-black);
+}
+
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Header — editorial display moment (Monarch-style) */
+.header {
+  text-align: center;
+  padding: 32px 8px 24px;
+}
+.header h1 {
+  margin: 0;
+  font-family: var(--font-monarch);
+  font-weight: 400;
+  font-size: 2.1rem;
+  letter-spacing: 0;
+  color: var(--color-ink-black);
+}
+.header p {
+  margin: 10px 0 0;
+  color: var(--color-warm-stone);
+  font-size: 1rem;
+}
+
+/* Tabs — act as nav links, active state uses harvest flame */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: var(--color-paper-white);
+  border-radius: var(--radius-cards);
+  padding: 6px;
+  box-shadow: var(--shadow-sm);
+}
+.tab {
+  flex: 1;
+  padding: 12px;
+  font-family: var(--font-muotoweb);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  border: none;
+  border-radius: var(--radius-buttons);
+  background: transparent;
+  color: var(--color-warm-stone);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.tab.active {
+  background: var(--color-harvest-flame);
+  color: var(--color-paper-white);
+}
+
+.card {
+  background: var(--color-paper-white);
+  border-radius: var(--radius-cards);
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+}
+.card h2 {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.36px;
+  color: var(--color-ink-black);
+}
+
+.hint { color: var(--color-warm-stone); font-size: 0.95rem; }
+
+.word-input, .field input, .field select {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--color-ink-black);
+  border: 1px solid var(--color-bone);
+  border-radius: var(--radius-inputs);
+  background: var(--color-paper-white);
+}
+.word-input:focus, .field input:focus, .field select:focus {
+  outline: 2px solid var(--color-harvest-flame);
+  outline-offset: 4px;
+  border-color: var(--color-harvest-flame);
+}
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+.field span { display: block; margin-bottom: 6px; font-weight: 600; color: var(--color-ink-black); }
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  border: 2px dashed var(--color-bone);
+  border-radius: var(--radius-cards);
+  margin: 14px 0;
+  cursor: pointer;
+  overflow: hidden;
+  background: var(--color-cream-canvas);
+}
+.upload-placeholder { color: var(--color-driftwood); font-size: 1.05rem; font-weight: 500; }
+.preview-img {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: var(--radius-images);
+}
+
+/* Primary CTA — fa5d00 fill, system's one chromatic decision */
+.btn-primary {
+  width: 100%;
+  padding: 14px 24px;
+  font-family: var(--font-muotoweb);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  color: var(--color-paper-white);
+  background: var(--color-harvest-flame);
+  border: none;
+  border-radius: var(--radius-buttons);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #e15400; }
+.btn-primary:disabled { opacity: 0.6; cursor: default; }
+
+.error { color: #b91c1c; font-weight: 600; }
+
+.badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-tags);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.confidence { color: var(--color-warm-stone); font-size: 0.9rem; }
+
+.compare {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.compare-col { flex: 1; min-width: 180px; }
+.compare-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  color: var(--color-harvest-flame);
+  margin: 8px 0 4px;
+}
+.recognized, .target {
+  padding: 14px;
+  border-radius: var(--radius-images);
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: var(--color-marigold-glow);
+  color: var(--color-ink-black);
+}
+.target { background: var(--color-cream-canvas); border: 1px solid var(--color-parchment-shadow); }
+
+.feedback {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--color-cream-canvas);
+  border-radius: var(--radius-cards);
+}
+.feedback h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink-black);
+}
+.feedback ul { margin: 0; padding-left: 20px; }
+.feedback li { margin-bottom: 6px; color: var(--color-warm-stone); }
+
+.footer {
+  text-align: center;
+  color: var(--color-driftwood);
+  font-size: 0.85rem;
+  padding: 32px 0;
+}
