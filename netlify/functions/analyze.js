@@ -2,6 +2,7 @@ import { GoogleGenAI } from '@google/genai'
 
 // 초등학생 손글씨 교정 보조 - Gemini 2.5 Flash 비전 판독 함수
 // 클라이언트는 절대 API 키를 보지 못하며, 모든 호출은 이 서버 함수에서만 수행된다.
+// Netlify Functions v2 형식 (Request/Response 기반) 사용.
 
 const MODEL = 'gemini-2.5-flash'
 
@@ -41,32 +42,33 @@ function extractJson(text) {
   }
 }
 
-export const handler = async (event) => {
-  const headers = { 'Content-Type': 'application/json' }
+function json(status, body) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
 
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'POST만 허용됩니다.' }) }
+export default async (req) => {
+  if (req.method !== 'POST') {
+    return json(405, { error: 'POST만 허용됩니다.' })
   }
 
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'GEMINI_API_KEY 환경변수가 설정되지 않았습니다. Netlify 환경변수를 확인하세요.' }),
-    }
+    return json(500, { error: 'GEMINI_API_KEY 환경변수가 설정되지 않았습니다. Netlify 환경변수를 확인하세요.' })
   }
 
   let payload
   try {
-    payload = JSON.parse(event.body || '{}')
+    payload = await req.json()
   } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: '잘못된 요청 형식입니다.' }) }
+    return json(400, { error: '잘못된 요청 형식입니다.' })
   }
 
-  const { imageBase64, mimeType = 'image/jpeg', targetText = '' } = payload
+  const { imageBase64, mimeType = 'image/jpeg', targetText = '' } = payload || {}
   if (!imageBase64) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: '이미지가 없습니다.' }) }
+    return json(400, { error: '이미지가 없습니다.' })
   }
 
   // data URL 접두사가 붙어 있으면 제거
@@ -95,19 +97,15 @@ export const handler = async (event) => {
     const parsed = extractJson(rawText)
 
     if (!parsed) {
-      return {
-        statusCode: 502,
-        headers,
-        body: JSON.stringify({ error: 'AI 응답을 해석하지 못했습니다.', raw: rawText }),
-      }
+      return json(502, { error: 'AI 응답을 해석하지 못했습니다.', raw: rawText })
     }
 
-    return { statusCode: 200, headers, body: JSON.stringify(parsed) }
+    return json(200, parsed)
   } catch (err) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'AI 판독 중 오류가 발생했습니다.', detail: String(err?.message || err) }),
-    }
+    return json(500, { error: 'AI 판독 중 오류가 발생했습니다.', detail: String(err?.message || err) })
   }
+}
+
+export const config = {
+  path: '/api/analyze',
 }

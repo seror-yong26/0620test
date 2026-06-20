@@ -3,11 +3,8 @@
   publish = "dist"
   functions = "netlify/functions"
 
-# /api/* 요청을 Netlify Functions로 매핑
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# analyze.js가 Functions v2 형식(config.path = "/api/analyze")으로
+# 자체 라우팅되므로 별도의 /api/* 리다이렉트는 필요 없다.
 
 # SPA 라우팅: 나머지 모든 경로는 index.html로
 [[redirects]]
